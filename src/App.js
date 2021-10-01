@@ -14,7 +14,7 @@ useEffect ( ()=>{
   return (
     <div className="App">
        {
-            news.lenght ===0 ?
+            news.length ===0 ?
             <Spinner animation="border" variant="success" />
             :
           <Row xs={1} md={2} className="g-4">
