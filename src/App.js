@@ -1,23 +1,32 @@
-import logo from './logo.svg';
 import './App.css';
+import { useEffect,useState } from 'react';
+import { Row, Spinner } from 'react-bootstrap';
+import News from './components/News/News';
 
 function App() {
+  const [news, setNews] = useState([]);
+useEffect ( ()=>{
+  fetch(' https://newsapi.org/v2/top-headlines?sources=techcrunch&apiKey=a7e11e4824d64b3fba564f66702d6e3c ')
+  .then(res=> res.json())
+  .then(data => setNews(data.articles));
+}, [])
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+       {
+            news.lenght ===0 ?
+            <Spinner animation="border" variant="success" />
+            :
+          <Row xs={1} md={2} className="g-4">
+            {
+              news.map(nw => <News news={nw}>
+
+              </News>)
+            }
+          
+          </Row>
+        }
+
     </div>
   );
 }
